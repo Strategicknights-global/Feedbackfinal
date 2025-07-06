@@ -1,3 +1,4 @@
+// src/components/RatingIcon.jsx
 import React from 'react';
 import { FaRegSmileBeam, FaRegSmile, FaRegMeh, FaRegFrown, FaRegAngry } from 'react-icons/fa';
 
@@ -10,7 +11,7 @@ const ratingMap = {
 };
 
 const RatingIcon = ({ value, name, selectedValue, onChange }) => {
-  const isSelected = value === selectedValue;
+  const isSelected = parseInt(value, 10) === selectedValue;
   const { icon, colorClass } = ratingMap[value];
 
   return (
@@ -23,8 +24,9 @@ const RatingIcon = ({ value, name, selectedValue, onChange }) => {
         onChange={onChange}
         required
       />
+      {/* This span will now always render the icon */}
       <span className={`icon-display ${isSelected ? colorClass : ''}`}>
-        {isSelected ? icon : null}
+        {icon}
       </span>
     </label>
   );

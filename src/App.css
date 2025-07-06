@@ -1,5 +1,7 @@
 /* src/App.css */
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* --- Global Styles & Variables --- */
 :root {
   --primary-blue: #007bff;
@@ -242,3 +244,35 @@ body {
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @media (max-width: 992px) { .admin-panel { grid-template-columns: 1fr; } }
 @media (max-width: 768px) { .navbar { flex-direction: column; gap: 1rem; } .page-title { font-size: 2rem; } }
+
+/* src/App.css */
+
+/* ... (all your existing CSS) ... */
+
+/* --- NEW STYLES FOR YOUR RATING ICONS --- */
+.rating-icon {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.rating-icon:hover {
+  transform: scale(1.2);
+}
+
+.rating-icon input[type="radio"] {
+  display: none; /* Hides the actual radio button */
+}
+
+.icon-display {
+  font-size: 2rem; /* Make icons larger */
+  color: #cbd5e1; /* Default color for unselected icons (light grey) */
+  transition: color 0.2s ease;
+}
+
+/* Colors for selected icons */
+.icon-display.rating-5 { color: #22c55e; } /* Green */
+.icon-display.rating-4 { color: #84cc16; } /* Lime */
+.icon-display.rating-3 { color: #facc15; } /* Yellow */
+.icon-display.rating-2 { color: #f97316; } /* Orange */
+.icon-display.rating-1 { color: #ef4444; } /* Red */
