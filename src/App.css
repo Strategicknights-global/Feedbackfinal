@@ -1,278 +1,521 @@
 /* src/App.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* --- Global Styles & Variables --- */
-:root {
-  --primary-blue: #007bff;
-  --primary-blue-hover: #0056b3;
-  --light-blue-bg: #f0f7ff;
-  --border-color: #dee2e6;
-  --text-color: #333;
-  --light-text-color: #6c757d;
-  --white: #fff;
-  --page-bg: #f8f9fa;
-  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  --required-red: #dc3545;
 
-  /* Rating Colors */
-  --rating-5: #28a745; /* Green */
-  --rating-4: #9acd32; /* Lime Green */
-  --rating-3: #ffc107; /* Yellow */
-  --rating-2: #fd7e14; /* Orange */
-  --rating-1: #dc3545; /* Red */
-}
+/* 1. FONT & BASE STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--page-bg);
-  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* bg-slate-50 */
+  color: #334155; /* slate-700 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- App Container & Main Content --- */
+/* 2. LAYOUT & NAVIGATION */
 .app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 2rem;
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 0 1.5rem;
 }
 
-/* --- Navbar (No Changes) --- */
-.navbar {
+.navbar, .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 2rem;
-  background-color: var(--white);
-  box-shadow: var(--card-shadow);
-  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
 }
-.navbar-logo-container {
+
+.navbar-logo-container, .main-nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #1e293b;
+}
+
+.navbar-logo, .main-nav .logo img {
+  width: 32px;
+  height: 32px;
+}
+
+.navbar-links, .main-nav .nav-links {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.navbar-logo { height: 40px; }
-.navbar-title { font-size: 1.5rem; font-weight: 600; color: var(--text-color); }
-.navbar-links { display: flex; align-items: center; gap: 1.5rem; }
-.navbar-link { text-decoration: none; color: var(--primary-blue); font-weight: 500; }
-.logout-button { background-color: var(--primary-blue); color: var(--white); border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 500; }
-.logout-button:hover { background-color: var(--primary-blue-hover); }
 
-/* --- General Components (No Changes) --- */
-.page-title { font-size: 2.5rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem; }
-.page-subtitle { font-size: 1.1rem; text-align: center; color: var(--light-text-color); margin-bottom: 3rem; }
-.card { background: var(--white); padding: 2rem; border-radius: 12px; box-shadow: var(--card-shadow); border: 1px solid var(--border-color); }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-.form-input, .form-select { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; font-size: 1rem; background-color: var(--white); }
-.form-input:focus, .form-select:focus { outline: none; border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2); }
-.error-message { color: var(--required-red); text-align: center; margin-top: 1rem; }
-
-/* --- Login & Admin Panel (No Changes) --- */
-.login-container { display: flex; justify-content: center; align-items: center; padding-top: 5vh; }
-.login-card { width: 100%; max-width: 450px; }
-.admin-panel { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2rem; }
-.admin-panel__column h3 { border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; margin-top: 0; }
-.list-container { margin-top: 1.5rem; max-height: 400px; overflow-y: auto; padding-right: 1rem; }
-.list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 0.8rem; background-color: #f8f9fa; }
-.list-item__text small { display: block; color: var(--light-text-color); font-size: 0.8em; }
-.delete-button { background: transparent; border: none; color: var(--required-red); font-size: 1.5rem; cursor: pointer; transition: transform 0.2s ease; }
-.delete-button:hover { transform: scale(1.2); }
-
-/* --- START: UNIFIED FEEDBACK FORM STYLES (UPDATED) --- */
-.feedback-form-container .card {
-  padding: 0;
-  overflow: hidden;
-}
-
-.form-selector-container {
-  max-width: 500px;
-  margin: 0 auto 2rem auto;
-}
-
-.form-selector-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    text-align: center;
-}
-
-.feedback-grid-container {
-  overflow-x: auto;
-}
-
-.feedback-grid {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1200px;
-}
-
-.feedback-grid th,
-.feedback-grid td {
-  border: 1px solid var(--border-color);
-  padding: 0.8rem;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.feedback-grid thead {
-  background-color: var(--light-blue-bg);
-  font-weight: 600;
-}
-
-.question-col {
-  width: 30%;
-  text-align: left !important;
-  font-weight: 500;
-}
-
-.required-asterisk {
-    color: var(--required-red);
-}
-
-.rating-header {
-  font-weight: 500;
-  font-size: 0.9em;
-  padding: 0.5rem;
-}
-
-.ratings-group {
-  display: flex;
-  justify-content: space-around;
+/* 3. BUTTONS, LINKS & ICONS */
+.navbar-link, .logout-button, .btn-primary {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
 }
-/* --- END: UNIFIED FEEDBACK FORM STYLES --- */
 
+.navbar-link {
+  font-weight: 500;
+  color: #475569;
+  padding: 0.5rem 1rem;
+  background: transparent;
+}
 
-/* --- START: RATINGICON (EMOJI) STYLES --- */
-.rating-icon {
-  position: relative;
+.navbar-link:hover {
+  background-color: #f1f5f9;
+}
+
+.navbar-link.active {
+  color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+.logout-button {
+  padding: 0.6rem 1.2rem;
+  background-color: #ef4444; /* red-500 */
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #dc2626; /* red-600 */
+}
+
+.btn-primary {
+  padding: 0.75rem 1rem;
+  background-color: #2563eb; /* blue-600 */
+  color: white;
+}
+
+.btn-primary.w-full {
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
+
+.btn-primary:disabled, .logout-button:disabled {
+  background-color: #9ca3af; /* gray-400 */
+  cursor: not-allowed;
+}
+
+/* 4. CARDS & FORMS */
+.content-card {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid #e2e8f0;
+  margin-top: 2rem;
+}
+
+.page-title {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px #c7d2fe;
+}
+
+/* 5. LOGIN PAGE */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+}
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* ======================================================================== */
+/* 6. UNIVERSAL RATING COMPONENT STYLES (Used by general/vertical forms) */
+/* ======================================================================== */
+
+.rating-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.rating-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
   cursor: pointer;
 }
 
-.rating-icon input[type="radio"] {
-  position: absolute;
-  opacity: 0;
+.rating-option input[type="radio"] {
+  display: none;
+}
+
+.rating-number {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b; /* slate-500 */
+}
+
+.rating-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1; /* slate-300 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.rating-circle .icon-face {
+  font-size: 1.5rem;
+  color: transparent;
+}
+
+.rating-option:hover .rating-circle {
+  border-color: #94a3b8; /* slate-400 */
+}
+
+.rating-option.selected .rating-circle {
+  border-color: transparent;
+}
+
+.rating-option.selected .rating-circle .icon-face {
+  color: white;
+}
+
+.rating-option.selected.rating-5 .rating-circle { background-color: #22c55e; }
+.rating-option.selected.rating-4 .rating-circle { background-color: #84cc16; }
+.rating-option.selected.rating-3 .rating-circle { background-color: #facc15; }
+.rating-option.selected.rating-2 .rating-circle { background-color: #f97316; }
+.rating-option.selected.rating-1 .rating-circle { background-color: #ef4444; }
+
+
+/* ======================================================================== */
+/* 7. VERTICAL SUBJECT LIST FORM STYLES (For 'subject' type forms) */
+/* ======================================================================== */
+
+.main-feedback-question {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.vertical-subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.subject-rating-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+.subject-name-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.subject-name-container svg {
+  color: #64748b;
+}
+
+.subject-name-text {
+  font-weight: 500;
+  color: #334155;
+}
+
+
+/* ======================================================================== */
+/* 8. HORIZONTAL GENERAL FEEDBACK FORM STYLES (For 'general' type forms) */
+/* ======================================================================== */
+
+.feedback-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  margin-bottom: 1rem;
+}
+
+.feedback-row .question-text {
+  flex-grow: 1;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* ======================================================================== */
+/* 9. SYLLABUS FEEDBACK GRID (Professional Screenshot Layout) - NEW STYLES */
+/* ======================================================================== */
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #1e293b;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: #64748b; /* slate-500 */
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.feedback-grid-container {
+  width: 100%;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  border: 1px solid #e2e8f0; /* slate-200 */
+  border-radius: 0.75rem;
+}
+
+.feedback-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px; /* Force table to be wide so scrollbar appears */
+}
+
+/* --- Table Header Styling --- */
+.feedback-grid-table th {
+  background-color: #f8fafc; /* slate-50 */
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #334155; /* slate-700 */
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.subject-header-cell {
+  border-left: 1px solid #e2e8f0;
+}
+
+.rating-number-header {
+  font-weight: 500;
+  color: #64748b; /* slate-500 */
+  border-left: 1px solid #e2e8f0;
+  min-width: 60px; /* Ensure number columns have adequate space */
+}
+
+/* --- Table Body Styling --- */
+.feedback-grid-table td {
+  border-bottom: 1px solid #e2e8f0;
+}
+.feedback-grid-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Sticky Column Styling --- */
+.question-header-cell {
+  position: sticky;
+  left: 0;
+  z-index: 30; /* Highest z-index for the top-left corner */
+  text-align: left;
+  border-right: 1px solid #e2e8f0;
+}
+
+.question-body-cell {
+  background-color: white;
+  text-align: left;
+  font-weight: 500;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  min-width: 350px;
+  max-width: 350px;
+  border-right: 1px solid #e2e8f0;
+}
+.feedback-grid-table tbody tr:hover .question-body-cell {
+  background-color: #f1f5f9; /* slate-100 */
+}
+
+/* --- Radio Button Cell Styling --- */
+.rating-grid-cell {
+  text-align: center;
+  padding: 0.5rem;
+  border-left: 1px solid #e2e8f0;
+}
+
+.rating-radio-label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
 
-.rating-icon .icon-display {
-  width: 30px;
-  height: 30px;
+.rating-radio-label input[type="radio"] {
+  display: none; /* Hide the actual radio button */
+}
+
+.rating-radio-circle {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  border: 2px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 2px solid #cbd5e1; /* slate-300 */
   transition: all 0.2s ease;
-  font-size: 1.2rem;
+  position: relative;
 }
 
-.rating-icon input[type="radio"]:checked + .icon-display {
-  border-width: 2px;
-  color: white;
+.rating-radio-label:hover .rating-radio-circle {
+  border-color: #94a3b8; /* slate-400 */
 }
 
-.rating-icon input[type="radio"]:focus-visible + .icon-display {
-  box-shadow: 0 0 0 3px var(--primary-blue-hover);
+/* --- Selected State for Radio Button --- */
+.rating-radio-label input:checked + .rating-radio-circle {
+  background-color: #2563eb; /* blue-600 */
+  border-color: #2563eb;
 }
 
-.rating-icon:hover .icon-display {
-    border-color: var(--primary-blue);
+/* Optional: Add an inner dot for better visual feedback */
+.rating-radio-label input:checked + .rating-radio-circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+}
+/* Add to src/App.css */
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #1e293b;
 }
 
-.rating-icon input[type="radio"]:checked + .icon-display.rating-5 { background-color: var(--rating-5); border-color: var(--rating-5); }
-.rating-icon input[type="radio"]:checked + .icon-display.rating-4 { background-color: var(--rating-4); border-color: var(--rating-4); }
-.rating-icon input[type="radio"]:checked + .icon-display.rating-3 { background-color: var(--rating-3); border-color: var(--rating-3); }
-.rating-icon input[type="radio"]:checked + .icon-display.rating-2 { background-color: var(--rating-2); border-color: var(--rating-2); }
-.rating-icon input[type="radio"]:checked + .icon-display.rating-1 { background-color: var(--rating-1); border-color: var(--rating-1); }
-/* --- END: RATINGICON (EMOJI) STYLES --- */
-
-
-.feedback-submit-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 2rem;
-    padding: 0 2rem 2rem 2rem;
-}
-.submit-button {
-  width: auto;
-  padding: 0.8rem 2.5rem;
-}
-.submit-button:disabled {
-    background-color: #a0caff;
-    cursor: not-allowed;
+.form-subtitle {
+  font-size: 1rem;
+  color: #64748b; /* slate-500 */
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 2rem;
 }
 
-.form-message {
-    text-align: center; 
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-.form-message.success { color: var(--rating-5); }
-.form-message.error { color: var(--rating-1); }
+/* ======================================================================== */
+/* 6. SYLLABUS FEEDBACK GRID (Professional Screenshot Layout with Icons) */
+/* ======================================================================== */
 
+.form-title { font-size: 2rem; font-weight: 800; text-align: center; color: #1e293b; }
+.form-subtitle { font-size: 1rem; color: #64748b; text-align: center; margin-top: 0.25rem; margin-bottom: 2rem; }
+.feedback-grid-container { width: 100%; overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 0.75rem; }
+.feedback-grid-table { width: 100%; border-collapse: collapse; min-width: 1200px; }
 
-/* --- Loading Spinner & Responsive (No Changes) --- */
-.loading-spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid var(--primary-blue);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 4rem auto;
-}
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@media (max-width: 992px) { .admin-panel { grid-template-columns: 1fr; } }
-@media (max-width: 768px) { .navbar { flex-direction: column; gap: 1rem; } .page-title { font-size: 2rem; } }
+/* --- Table Header Styling --- */
+.feedback-grid-table th { background-color: #f8fafc; padding: 0.75rem 1rem; font-weight: 600; color: #334155; text-align: center; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #e2e8f0; }
+.subject-header-cell { border-left: 1px solid #e2e8f0; }
+.rating-number-header { font-weight: 500; color: #64748b; border-left: 1px solid #e2e8f0; min-width: 60px; }
 
-/* src/App.css */
+/* --- Table Body Styling --- */
+.feedback-grid-table td { border-bottom: 1px solid #e2e8f0; }
+.feedback-grid-table tbody tr:last-child td { border-bottom: none; }
 
-/* ... (all your existing CSS) ... */
+/* --- Sticky Column Styling --- */
+.question-header-cell { position: sticky; left: 0; z-index: 30; text-align: left; border-right: 1px solid #e2e8f0; }
+.question-body-cell { background-color: white; text-align: left; font-weight: 500; padding: 1rem 1.5rem; position: sticky; left: 0; z-index: 10; min-width: 350px; max-width: 350px; border-right: 1px solid #e2e8f0; }
+.feedback-grid-table tbody tr:hover .question-body-cell { background-color: #f1f5f9; }
 
-/* --- NEW STYLES FOR YOUR RATING ICONS --- */
-.rating-icon {
-  display: inline-block;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
+/* --- ICON-BASED Radio Button Cell Styling --- */
+.rating-grid-cell { text-align: center; padding: 0.5rem; border-left: 1px solid #e2e8f0; }
 
-.rating-icon:hover {
-  transform: scale(1.2);
-}
+.rating-radio-label { display: inline-flex; justify-content: center; align-items: center; width: 100%; height: 100%; cursor: pointer; }
+.rating-radio-label input[type="radio"] { display: none; }
 
-.rating-icon input[type="radio"] {
-  display: none; /* Hides the actual radio button */
-}
-
-.icon-display {
-  font-size: 2rem; /* Make icons larger */
-  color: #cbd5e1; /* Default color for unselected icons (light grey) */
-  transition: color 0.2s ease;
+/* This is the circle that contains the face icon */
+.rating-radio-face {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #e2e8f0; /* Lighter border for unselected */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 1.5rem;
+  color: #cbd5e1; /* Default grey color for unselected icon */
 }
 
-/* Colors for selected icons */
-.icon-display.rating-5 { color: #22c55e; } /* Green */
-.icon-display.rating-4 { color: #84cc16; } /* Lime */
-.icon-display.rating-3 { color: #facc15; } /* Yellow */
-.icon-display.rating-2 { color: #f97316; } /* Orange */
-.icon-display.rating-1 { color: #ef4444; } /* Red */
+.rating-radio-label:hover .rating-radio-face {
+  border-color: #94a3b8;
+  color: #94a3b8;
+}
+
+/* --- SELECTED STATE for the Icon --- */
+.rating-radio-label.selected .rating-radio-face {
+  border-color: transparent;
+  transform: scale(1.1);
+  color: white; /* Icon color becomes white */
+}
+
+/* Apply background colors to the circle when selected */
+.rating-radio-label.selected.rating-5 .rating-radio-face { background-color: #22c55e; }
+.rating-radio-label.selected.rating-4 .rating-radio-face { background-color: #84cc16; }
+.rating-radio-label.selected.rating-3 .rating-radio-face { background-color: #facc15; }
+.rating-radio-label.selected.rating-2 .rating-radio-face { background-color: #f97316; }
+.rating-radio-label.selected.rating-1 .rating-radio-face { background-color: #ef4444; }

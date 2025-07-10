@@ -2,20 +2,24 @@
 import React from 'react';
 import { FaRegSmileBeam, FaRegSmile, FaRegMeh, FaRegFrown, FaRegAngry } from 'react-icons/fa';
 
-const ratingMap = {
-  5: { icon: <FaRegSmileBeam />, colorClass: 'rating-5' },
-  4: { icon: <FaRegSmile />, colorClass: 'rating-4' },
-  3: { icon: <FaRegMeh />, colorClass: 'rating-3' },
-  2: { icon: <FaRegFrown />, colorClass: 'rating-2' },
-  1: { icon: <FaRegAngry />, colorClass: 'rating-1' },
+// The map now only contains the icon component.
+const ratingIconMap = {
+  5: FaRegSmileBeam,
+  4: FaRegSmile,
+  3: FaRegMeh,
+  2: FaRegFrown,
+  1: FaRegAngry,
 };
 
 const RatingIcon = ({ value, name, selectedValue, onChange }) => {
   const isSelected = parseInt(value, 10) === selectedValue;
-  const { icon, colorClass } = ratingMap[value];
+  const IconComponent = ratingIconMap[value];
+
+  // We add the color class directly based on the value for styling.
+  const colorClass = `rating-${value}`;
 
   return (
-    <label className="rating-icon">
+    <label className="rating-cell">
       <input
         type="radio"
         name={name}
@@ -24,10 +28,11 @@ const RatingIcon = ({ value, name, selectedValue, onChange }) => {
         onChange={onChange}
         required
       />
-      {/* This span will now always render the icon */}
-      <span className={`icon-display ${isSelected ? colorClass : ''}`}>
-        {icon}
-      </span>
+      {/* The number and icon are now together */}
+      <div className={`rating-display ${isSelected ? `selected ${colorClass}` : ''}`}>
+        <span className="rating-number">{value}</span>
+        <IconComponent className="icon-face" />
+      </div>
     </label>
   );
 };

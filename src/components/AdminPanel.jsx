@@ -102,7 +102,7 @@ const AdminPanel = () => {
       {loading ? <div className="loading-spinner"></div> : (
         <div className="admin-panel">
           <div className="admin-panel__column">
-            <div className="card">
+            <div className="content-card">
               <h3>Create New Form</h3>
               <form onSubmit={handleCreateForm}>
                 <div className="form-group">
@@ -116,10 +116,10 @@ const AdminPanel = () => {
                     placeholder="e.g., Syllabus Feedback 2024"
                   />
                 </div>
-                <button type="submit" className="submit-button">Create Form</button>
+                <button type="submit" className="btn-primary">Create Form</button>
               </form>
             </div>
-            <div className="card" style={{marginTop: '2rem'}}>
+            <div className="content-card" style={{marginTop: '2rem'}}>
               <h3>Add New Question</h3>
               <form onSubmit={handleCreateQuestion}>
                 <div className="form-group">
@@ -147,23 +147,23 @@ const AdminPanel = () => {
                     ))}
                   </select>
                 </div>
-                <button type="submit" className="submit-button">Add Question</button>
+                <button type="submit" className="btn-primary">Add Question</button>
               </form>
             </div>
           </div>
           <div className="admin-panel__column">
-            <div className="card">
+            <div className="content-card">
               <h3>Existing Forms</h3>
               <div className="list-container">
                 {forms.map(form => (
                   <div key={form.id} className="list-item">
                     <span className="list-item__text">{form.name}</span>
-                    <button onClick={() => handleDeleteForm(form.id)} className="delete-button"><FaTrash /></button>
+                    <button onClick={() => handleDeleteForm(form.id)} className="btn-danger"><FaTrash /></button>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="card" style={{marginTop: '2rem'}}>
+            <div className="content-card" style={{marginTop: '2rem'}}>
               <h3>Existing Questions</h3>
               <div className="list-container">
                 {questions.map(q => (
@@ -172,7 +172,7 @@ const AdminPanel = () => {
                       {q.text}
                       <small>Form: {q.formName}</small>
                     </div>
-                    <button onClick={() => handleDeleteQuestion(q.id)} className="delete-button"><FaTrash /></button>
+                    <button onClick={() => handleDeleteQuestion(q.id)} className="btn-danger"><FaTrash /></button>
                   </div>
                 ))}
               </div>

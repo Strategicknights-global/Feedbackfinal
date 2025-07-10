@@ -2,8 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import GeneralFeedback from './GeneralFeedback';      // Import the general form
-import SubjectFeedbackGrid from './SubjectFeedbackGrid';  // Import the subject grid form
+import { FaWpforms } from 'react-icons/fa';
+
+// Import your two main form components
+import GeneralFeedback from './GeneralFeedback';
+import SubjectFeedbackGrid from './SubjectFeedbackGrid';
 
 function UnifiedFeedbackForm() {
   const [forms, setForms] = useState([]);
@@ -37,23 +40,50 @@ function UnifiedFeedbackForm() {
     }
   };
 
+  // --- THIS IS THE RENDERING LOGIC ---
+  const renderSelectedForm = () => {
+    // If no form is selected, show nothing.
+    if (!selectedForm) {
+      return null;
+    }
+
+    // Check the 'type' of the selected form.
+    // This is why adding the 'type' in the Admin Panel was crucial.
+    switch (selectedForm.type) {
+      case 'subject':
+        // If the form type is 'subject', render the grid component.
+        // The grid component itself contains the SemesterSelector logic.
+        return <SubjectFeedbackGrid form={selectedForm} />;
+      
+      case 'general':
+        // If the form type is 'general', render the vertical list component.
+        return <GeneralFeedback form={selectedForm} />;
+      
+      default:
+        // As a fallback, render the general form if type is missing or unknown.
+        console.warn(`Unknown or missing form type for form: ${selectedForm.name}. Defaulting to general layout.`);
+        return <GeneralFeedback form={selectedForm} />;
+    }
+  };
+
   return (
-    <div className="w-full bg-slate-50 rounded-2xl shadow-2xl p-6 sm:p-10 my-8 max-w-7xl mx-auto">
+    <div className="content-card">
       <div className="text-center mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
+        <h1 className="page-title">
+          <FaWpforms />
           Student Feedback Portal
         </h1>
         <p className="mt-2 text-slate-600">Your feedback helps us improve.</p>
       </div>
 
-      <div className="mb-8">
+      <div className="form-group">
         <label htmlFor="form-selection" className="block text-lg font-semibold text-slate-800 mb-3">Select Feedback Form</label>
         {loading ? (
           <p>Loading forms...</p>
         ) : (
           <select 
             id="form-selection"
-            className="w-full max-w-sm p-3 bg-white border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-500"
+            className="form-select"
             onChange={handleFormChange}
             defaultValue=""
           >
@@ -65,17 +95,11 @@ function UnifiedFeedbackForm() {
         )}
       </div>
 
-      {/* --- CONDITIONAL RENDERING LOGIC --- */}
-      {/* This is the core of the new system. It checks the 'type' of the selected form. */}
+      {/* --- This is where the magic happens --- */}
+      {/* The renderSelectedForm function will now show the correct component. */}
       {selectedForm && (
         <div className="mt-12">
-          {selectedForm.type === 'subject' ? (
-            // If the form type is 'subject', render the grid component
-            <SubjectFeedbackGrid form={selectedForm} />
-          ) : (
-            // Otherwise, render the general feedback component
-            <GeneralFeedback form={selectedForm} />
-          )}
+          {renderSelectedForm()}
         </div>
       )}
     </div>

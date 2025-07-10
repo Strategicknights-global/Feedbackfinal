@@ -1,7 +1,9 @@
+// src/components/Navbar.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/logo.png'; // Make sure you have a logo image here
+import logo from '../assets/logo.png';
+import { FaSlidersH, FaSignOutAlt, FaClipboardList } from 'react-icons/fa'; // Import icons
 
 const Navbar = () => {
   const { currentUser, userRole, logout } = useAuth();
@@ -25,12 +27,18 @@ const Navbar = () => {
       {currentUser && (
         <div className="navbar-links">
           {userRole === 'admin' && (
-            <Link to="/admin" className="navbar-link">Admin Panel</Link>
+            <Link to="/admin" className="navbar-link">
+              <FaSlidersH /> Admin Panel
+            </Link>
           )}
           {userRole === 'user' && (
-            <Link to="/feedback" className="navbar-link">Feedback Form</Link>
+            <Link to="/feedback" className="navbar-link">
+              <FaClipboardList /> Feedback Form
+            </Link>
           )}
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={handleLogout} className="logout-button">
+            <FaSignOutAlt /> Logout
+          </button>
         </div>
       )}
     </nav>
