@@ -1,0 +1,292 @@
+/* General Layout */
+.admin-panel-container {
+  max-width: 1100px; /* Slightly reduced max-width */
+  margin: 1.5rem auto; /* Slightly less margin */
+  padding: 1.2rem; /* Reduced padding */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f0f2f5; /* Light background for the whole page */
+  border-radius: 10px; /* Slightly less rounded */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04); /* Slightly softer shadow */
+}
+
+.page-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem; /* Slightly reduced margin */
+  font-size: 2.4em; /* Reduced title size */
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 2rem; /* Reduced padding */
+  font-size: 1.2em; /* Reduced font size */
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Grid Layout for Admin Panel */
+.admin-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem; /* Slightly reduced space between columns */
+}
+
+.admin-panel-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Slightly reduced space between cards within a column */
+}
+
+/* Content Cards */
+.content-card {
+  background: #ffffff;
+  border-radius: 12px; /* Slightly less rounded */
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.09); /* Softer shadow */
+  padding: 2rem; /* Reduced padding */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.content-card:hover {
+  transform: translateY(-4px); /* Slightly less lift on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Softer hover shadow */
+}
+
+.content-card h3 {
+  color: #4a69bd;
+  margin-top: 0;
+  margin-bottom: 1.5rem; /* Reduced space below heading */
+  font-size: 1.8em; /* Reduced heading size */
+  font-weight: 600;
+  border-bottom: 2px solid #e9ecef; /* Slightly thinner border */
+  padding-bottom: 10px; /* Reduced padding */
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.2rem; /* Reduced margin */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem; /* Reduced margin */
+  font-weight: bold;
+  color: #555;
+  font-size: 1em; /* Slightly reduced font size */
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.9rem 1rem; /* Reduced padding */
+  border: 1px solid #c9c9c9; /* Slightly lighter border */
+  border-radius: 6px; /* Slightly less rounded */
+  font-size: 1em; /* Reduced font size */
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fcfcfc;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #6a89cc;
+  box-shadow: 0 0 0 0.25rem rgba(106, 137, 204, 0.25); /* Softer glow */
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #b5b5b5; /* Lighter placeholder text */
+}
+
+.form-input:disabled,
+.form-select:disabled {
+  background-color: #f8f8f8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-help-text {
+  font-size: 0.85em; /* Slightly reduced font size */
+  color: #888;
+  margin-top: 0.4rem; /* Reduced margin */
+  display: block;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.8rem; /* Reduced padding */
+  border-radius: 6px; /* Slightly less rounded */
+  border: none;
+  cursor: pointer;
+  font-size: 1.05em; /* Slightly reduced font size */
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+  gap: 0.6rem; /* Reduced space between icon and text */
+}
+
+.btn-primary {
+  background-color: #4a69bd;
+  color: white;
+  box-shadow: 0 3px 12px rgba(74, 105, 189, 0.25); /* Softer shadow */
+}
+
+.btn-primary:hover {
+  background-color: #3b53a3;
+  box-shadow: 0 5px 18px rgba(74, 105, 189, 0.35); /* Softer hover shadow */
+  transform: translateY(-1.5px); /* Slightly less lift */
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+  box-shadow: 0 3px 12px rgba(231, 76, 60, 0.25); /* Softer shadow */
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  box-shadow: 0 5px 18px rgba(231, 76, 60, 0.35); /* Softer hover shadow */
+  transform: translateY(-1.5px);
+}
+
+.btn-icon {
+  padding: 0.7rem 0.9rem; /* Reduced padding */
+  font-size: 1.1em; /* Slightly reduced icon size */
+}
+
+.btn:disabled {
+  background-color: #dcdcdc;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* List Items */
+.list-container {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px; /* Slightly less rounded */
+  max-height: 400px; /* Slightly shorter scroll area */
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 0.4rem; /* Reduced internal padding */
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem; /* Reduced padding */
+  border-bottom: 1px solid #f2f2f2;
+  background-color: #ffffff;
+  border-radius: 6px; /* Slightly less rounded */
+  margin-bottom: 0.4rem; /* Reduced space between list items */
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04); /* Softer shadow */
+}
+
+.list-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.list-item:hover {
+  background-color: #f7f9fc;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07); /* Softer hover shadow */
+}
+
+.list-item__text {
+  flex-grow: 1;
+  color: #34495e;
+  font-size: 1em; /* Reduced font size */
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item__subtext {
+  font-size: 0.85em; /* Reduced font size */
+  color: #7f8c8d;
+  margin-top: 0.3em; /* Reduced margin */
+  font-weight: 400;
+}
+
+.no-items-message {
+  text-align: center;
+  color: #888;
+  padding: 2.5rem; /* Reduced padding */
+  font-style: italic;
+  font-size: 1em; /* Reduced font size */
+  background-color: #fcfcfc;
+  border-radius: 8px; /* Slightly less rounded */
+}
+
+/* Icons within buttons */
+.btn svg {
+  font-size: 1.1em; /* Slightly reduced icon size */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-panel-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem; /* Reduced gap */
+  }
+  .admin-panel-column {
+    gap: 1.2rem; /* Reduced gap */
+  }
+  .page-title {
+    font-size: 2em; /* Reduced further */
+  }
+  .content-card {
+    padding: 1.5rem; /* Reduced further */
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.6em; /* Reduced further */
+  }
+  .content-card {
+    padding: 1.2rem; /* Reduced further */
+  }
+  .btn {
+    width: 100%;
+    padding: 0.8rem 1.2rem; /* Reduced further */
+  }
+  .form-input,
+  .form-select {
+    padding: 0.8rem 0.9rem; /* Reduced further */
+  }
+}
+
+/* AdminPanel.css additions for selected form visual */
+.list-item.selected-item {
+    background-color: #e9efff; /* Lighter blue to indicate selection */
+    border: 1px solid #6a89cc; /* Highlight border */
+    box-shadow: 0 2px 8px rgba(106, 137, 204, 0.15); /* Softer shadow for selection */
+}
+
+/* Style for the analysis report section within AdminPanel */
+.analysis-report-section {
+    margin-top: 3rem; /* Space between admin grid and analysis report */
+    /* Add any other specific styling for the container if needed */
+}
+
+/* Optional: Hide specific labels for accessibility when visual replacement is used */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

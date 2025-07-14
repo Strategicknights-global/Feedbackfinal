@@ -1,0 +1,153 @@
+/* LoginPage.css */
+
+/* Overall Page Wrapper */
+.login-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a89cc, #4a69bd); /* Gradient background */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Login Container (for centering and max-width) */
+.login-container {
+  width: 100%;
+  max-width: 450px; /* Slightly wider card */
+  padding: 0 15px; /* Ensure spacing on small screens */
+}
+
+/* Login Card */
+.login-card {
+  background: #ffffff;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+  padding: 3rem 2.5rem; /* Generous padding */
+  text-align: center;
+  position: relative; /* For potential future animations/elements */
+  overflow: hidden; /* Ensures internal elements stay within bounds */
+}
+
+/* Title */
+.login-title {
+  color: #4a69bd; /* Primary blue for title */
+  margin-bottom: 2.5rem; /* More space below title */
+  font-size: 2.5em; /* Large, inviting title */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.login-title::after { /* Decorative underline for the title */
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #6a89cc;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Error Message */
+.error-message {
+  color: #e74c3c; /* Red for errors */
+  background-color: #fcebeb; /* Light red background for error */
+  border: 1px solid #e74c3c;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95em;
+}
+
+/* Form Styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between form groups */
+}
+
+.form-group {
+  text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 1em;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 1.05em;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Include padding in width */
+  background-color: #fcfcfc;
+}
+
+.form-input:focus {
+  border-color: #6a89cc; /* Primary blue on focus */
+  box-shadow: 0 0 0 0.3rem rgba(106, 137, 204, 0.3); /* Softer glow */
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #b0b0b0;
+}
+
+/* Login Button */
+.btn-login-primary { /* Specific class for login button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Full width button */
+  padding: 1.1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a69bd; /* Primary blue */
+  color: white;
+  font-size: 1.2em; /* Larger font size */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+  gap: 0.8rem; /* Space between icon and text */
+  box-shadow: 0 6px 20px rgba(74, 105, 189, 0.3); /* Button shadow */
+}
+
+.btn-login-primary:hover {
+  background-color: #3b53a3; /* Darker blue on hover */
+  box-shadow: 0 8px 25px rgba(74, 105, 189, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-login-primary:disabled {
+  background-color: #dcdcdc;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-login-primary svg {
+  font-size: 1.3em; /* Larger icon in button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .login-card {
+    padding: 2.5rem 1.5rem; /* Reduce padding on smaller screens */
+  }
+  .login-title {
+    font-size: 2em;
+  }
+  .btn-login-primary {
+    font-size: 1.1em;
+    padding: 1rem 1.5rem;
+  }
+}

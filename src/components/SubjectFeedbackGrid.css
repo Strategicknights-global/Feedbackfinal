@@ -1,0 +1,401 @@
+/* SubjectFeedbackGrid.css */
+
+/* --- General Layout and Page Elements --- */
+.feedback-page-container {
+  max-width: 1400px; /* Slightly wider container for the grid */
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: #f8f9fa; /* Light background for the page */
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.feedback-page-title {
+  text-align: center;
+  color: #4a69bd; /* Primary blue */
+  margin-bottom: 1.5rem;
+  font-size: 2.8em;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  border-bottom: 3px solid #e9ecef;
+  padding-bottom: 15px;
+}
+
+.semester-info {
+  text-align: center;
+  font-size: 1.2em;
+  color: #6c757d;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+/* --- Messages (Loading, Error, Success) --- */
+.feedback-loading,
+.feedback-no-data {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.3em;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.spinner-icon {
+  font-size: 2em;
+  color: #4a69bd;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.message-info {
+  background-color: #e9f7ef;
+  border: 1px solid #d4edda;
+  color: #155724;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.1em;
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.feedback-message {
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.success-message {
+  background-color: #d4edda; /* Light green */
+  color: #155724; /* Dark green */
+  border: 1px solid #c3e6cb;
+}
+
+.error-message {
+  background-color: #f8d7da; /* Light red */
+  color: #721c24; /* Dark red */
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Feedback Grid Table --- */
+.feedback-grid-wrapper {
+  overflow-x: auto; /* Enable horizontal scrolling for narrow screens */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.feedback-grid-table {
+  width: 100%;
+  border-collapse: separate; /* Allows border-radius on cells */
+  border-spacing: 0; /* Remove default spacing */
+  min-width: 800px; /* Ensures table doesn't get too narrow */
+}
+
+.feedback-grid-table th,
+.feedback-grid-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef; /* Light horizontal lines */
+  vertical-align: middle;
+  text-align: center;
+}
+
+.feedback-grid-table thead th {
+  background-color: #eef3f7; /* Header background color */
+  color: #4a69bd; /* Header text color */
+  font-weight: 600;
+  font-size: 1.1em;
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensure headers stay on top during scroll */
+}
+
+.feedback-grid-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.feedback-grid-table tbody tr:hover {
+  background-color: #f7f9fc; /* Subtle row hover effect */
+}
+
+/* Specific Cell Styles */
+.question-header-cell {
+  text-align: left;
+  min-width: 250px; /* Enough space for question text */
+  padding-left: 1.5rem; /* Indent questions */
+  border-top-left-radius: 10px; /* Rounded top-left corner */
+}
+
+.subject-header-cell {
+  min-width: 150px; /* Space for subject name + icon */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem; /* Adjust padding for subjects */
+  font-size: 0.95em;
+  color: #34495e; /* Darker text for subjects */
+}
+
+.subject-header-cell .subject-icon {
+  font-size: 1.5em;
+  color: #6a89cc; /* Icon color */
+}
+
+.subject-header-cell .subject-name {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.question-body-cell {
+  text-align: left;
+  font-weight: 500;
+  color: #555;
+  font-size: 1em;
+  padding-left: 1.5rem; /* Consistent indent with header */
+}
+
+
+
+/* --- Rating Stack (Vertical Radio Buttons) --- */
+.rating-stack {
+  display: flex;
+  flex-direction: column; /* Stack ratings vertically */
+  align-items: center; /* Center the stack horizontally */
+  gap: 0.4rem; /* Space between rating options */
+}
+
+.rating-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between number and icon */
+  padding: 0.5rem 0.8rem;
+  border-radius: 20px; /* Pill-shaped options */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #f0f4f7; /* Default background for unselected */
+  border: 1px solid #dbe2ea;
+  color: #777; /* Default text color */
+}
+
+.rating-option input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.rating-option:hover {
+  background-color: #e2e8ee;
+  border-color: #cdd8e4;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.rating-option .rating-value-label {
+  font-weight: 600;
+  font-size: 0.95em;
+  min-width: 15px; /* Ensure number doesn't collapse */
+  text-align: right;
+}
+
+.rating-option .rating-icon-face {
+  font-size: 1.4em; /* Size of the face icon */
+  color: #aebacd; /* Default icon color */
+  transition: color 0.2s ease;
+}
+
+/* Selected Rating Styles - Colors based on value */
+.rating-option.selected {
+  border-color: transparent; /* Hide border when selected */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow when selected */
+  transform: scale(1.05); /* Slightly larger when selected */
+  z-index: 1; /* Bring selected item to front */
+}
+
+.rating-option.selected .rating-icon-face {
+  color: white; /* Icons become white on selected */
+}
+
+.rating-option.selected .rating-value-label {
+  color: white; /* Numbers become white on selected */
+}
+
+/* Specific background colors for selected ratings */
+.rating-option.selected.rating-5 {
+  background-color: #28a745; /* Green for Excellent */
+}
+.rating-option.selected.rating-4 {
+  background-color: #007bff; /* Blue for Good */
+}
+.rating-option.selected.rating-3 {
+  background-color: #ffc107; /* Yellow/Orange for Average */
+}
+.rating-option.selected.rating-2 {
+  background-color: #fd7e14; /* Orange for Poor */
+}
+.rating-option.selected.rating-1 {
+  background-color: #dc3545; /* Red for Very Poor */
+}
+
+/* Ensure contrast for text on colorful backgrounds */
+.rating-option.selected.rating-3 .rating-value-label,
+.rating-option.selected.rating-3 .rating-icon-face {
+  color: #333; /* Darker text for light background */
+}
+
+/* --- Submit Button --- */
+.submit-button-container {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed #e0e0e0; /* Separator for the button */
+}
+
+.btn-submit-feedback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 3rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #4CAF50; /* A pleasant green for submission */
+  color: white;
+  font-size: 1.4em; /* Larger button text */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+  gap: 0.8rem;
+  min-width: 280px; /* Ensure button has good width */
+}
+
+.btn-submit-feedback:hover {
+  background-color: #45a049; /* Darker green on hover */
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.45);
+  transform: translateY(-3px);
+}
+
+.btn-submit-feedback:disabled {
+  background-color: #cccccc;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.spinner-icon-inline {
+  animation: spin 1s linear infinite; /* Spin for inline spinner */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .feedback-page-container {
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+  .feedback-page-title {
+    font-size: 2.2em;
+    margin-bottom: 1rem;
+  }
+  .feedback-grid-wrapper {
+    padding: 1rem;
+  }
+  .feedback-grid-table th,
+  .feedback-grid-table td {
+    padding: 0.8rem;
+  }
+  .question-header-cell,
+  .question-body-cell {
+    min-width: 200px;
+    padding-left: 1rem;
+  }
+  .subject-header-cell {
+    min-width: 120px;
+    font-size: 0.9em;
+  }
+  .rating-option {
+    padding: 0.4rem 0.6rem;
+  }
+  .rating-option .rating-icon-face {
+    font-size: 1.2em;
+  }
+  .btn-submit-feedback {
+    font-size: 1.2em;
+    padding: 1rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .feedback-page-title {
+    font-size: 2em;
+  }
+  .feedback-grid-table {
+    min-width: 600px; /* Allow more aggressive horizontal scroll */
+  }
+  .question-header-cell,
+  .question-body-cell {
+    min-width: 150px;
+  }
+  .subject-header-cell {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .feedback-page-container {
+    padding: 1rem;
+  }
+  .feedback-page-title {
+    font-size: 1.8em;
+  }
+  .feedback-grid-wrapper {
+    /* No padding, let the page padding handle it */
+    border-radius: 8px;
+  }
+  .feedback-grid-table {
+    min-width: 450px; /* Even smaller min-width for very small screens */
+  }
+  .question-header-cell,
+  .question-body-cell {
+    font-size: 0.9em;
+    min-width: 120px;
+    padding-left: 0.8rem;
+    padding-right: 0.4rem;
+  }
+  .subject-header-cell {
+    font-size: 0.8em;
+    min-width: 80px;
+  }
+  .rating-option {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8em;
+  }
+  .rating-option .rating-icon-face {
+    font-size: 1em;
+  }
+  .btn-submit-feedback {
+    font-size: 1em;
+    padding: 0.8rem 1.5rem;
+    min-width: unset;
+    width: 100%; /* Full width button on small screens */
+  }
+}

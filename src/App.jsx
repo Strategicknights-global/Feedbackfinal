@@ -7,6 +7,7 @@ import AdminPanel from './components/AdminPanel';
 import UnifiedFeedbackForm from './components/UnifiedFeedbackForm';
 import ProtectedRoute from './components/ProtectedRoute';
 import logo from './assets/logo.png'; // Import the logo
+import FeedbackAnalysisReport from './components/FeedbackAnalysisReport';
 
 function Navigation() {
   const { currentUser, logout } = useAuth();
@@ -55,6 +56,7 @@ function App() {
             <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
             <Route path="/form" element={<ProtectedRoute><UnifiedFeedbackForm /></ProtectedRoute>} />
             <Route path="/" element={<ProtectedRoute><UnifiedFeedbackForm /></ProtectedRoute>} />
+            <Route path="/admin/analysis" element={<ProtectedRoute allowedRoles={['admin']}><FeedbackAnalysisReport /></ProtectedRoute>} />
           </Routes>
         </main>
       </AuthProvider>

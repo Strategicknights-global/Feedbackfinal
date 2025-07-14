@@ -3,15 +3,18 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { db, auth } from '../firebaseConfig';
 import { collection, getDocs, addDoc, query, where, serverTimestamp } from 'firebase/firestore';
 import SemesterSelector from './SemesterSelector';
-import { FaRegSmileBeam, FaRegSmile, FaRegMeh, FaRegFrown, FaRegAngry, FaPaperPlane, FaBookOpen, FaFlask } from 'react-icons/fa';
+import { FaRegSmileBeam, FaRegSmile, FaRegMeh, FaRegFrown, FaRegAngry, FaPaperPlane, FaBookOpen, FaFlask, FaSpinner } from 'react-icons/fa'; // Added FaSpinner for loading
+
+// Import the new CSS file
+import './SubjectFeedbackGrid.css';
 
 // Map rating values to their icons
 const ratingIcons = {
-  5: FaRegSmileBeam,
-  4: FaRegSmile,
-  3: FaRegMeh,
-  2: FaRegFrown,
-  1: FaRegAngry,
+  5: FaRegSmileBeam, // Excellent
+  4: FaRegSmile,     // Good
+  3: FaRegMeh,       // Average
+  2: FaRegFrown,     // Poor
+  1: FaRegAngry,     // Very Poor
 };
 
 const SubjectFeedbackGrid = ({ form }) => {
@@ -19,40 +22,58 @@ const SubjectFeedbackGrid = ({ form }) => {
   const [subjects, setSubjects] = useState([]);
   const [questions, setQuestions] = useState([]);
   // STATE STRUCTURE: { questionId: { subjectId: ratingValue } }
-  const [ratings, setRatings] = useState({}); 
+  const [ratings, setRatings] = useState({});
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(''); // For success/error messages
 
   const currentUser = auth.currentUser;
   const rollNumber = currentUser?.email.split('@')[0];
   const yearOfJoining = rollNumber ? `20${rollNumber.substring(0, 2)}` : null;
   const deptCode = rollNumber ? rollNumber.substring(8, 11) : null;
 
-  // Fetching logic remains the same
   const fetchDataForForm = useCallback(async () => {
-    if (!selectedSemester || !deptCode || !form.id) return;
+    if (!selectedSemester || !deptCode || !form.id) {
+      // console.log("Skipping fetch: missing semester, deptCode, or form.id", { selectedSemester, deptCode, formId: form.id });
+      return;
+    }
     setLoading(true);
-    setMessage('');
+    setMessage(''); // Clear any previous messages
     try {
       const subjectQuery = query(collection(db, 'subjects'), where('deptCode', '==', deptCode), where('semester', '==', selectedSemester));
       const subjectsSnapshot = await getDocs(subjectQuery);
-      setSubjects(subjectsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const fetchedSubjects = subjectsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setSubjects(fetchedSubjects);
 
       const questionQuery = query(collection(db, 'questions'), where('formId', '==', form.id));
       const questionsSnapshot = await getDocs(questionQuery);
-      setQuestions(questionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      
+      const fetchedQuestions = questionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setQuestions(fetchedQuestions);
+
+      // Reset ratings when data for a new semester/form is fetched
       setRatings({});
+
+      // If no subjects found for the selected semester/dept
+      if (fetchedSubjects.length === 0 && fetchedQuestions.length > 0) {
+        setMessage("No subjects found for this semester in your department. Please contact administration.");
+      } else if (fetchedQuestions.length === 0 && fetchedSubjects.length > 0) {
+        setMessage("No questions found for this feedback form. Please contact administration.");
+      } else if (fetchedSubjects.length === 0 && fetchedQuestions.length === 0) {
+         setMessage("No subjects or questions found for this form/semester combination. Please contact administration.");
+      }
+
+
     } catch (error) {
       console.error("Error fetching data: ", error);
-      setMessage("Error: Could not load form data.");
+      setMessage("Error: Could not load form data. Please try again.");
     } finally {
       setLoading(false);
     }
   }, [selectedSemester, deptCode, form.id]);
 
-  useEffect(() => { fetchDataForForm(); }, [fetchDataForForm]);
+  useEffect(() => {
+    fetchDataForForm();
+  }, [fetchDataForForm]);
 
   const handleRatingChange = (questionId, subjectId, value) => {
     setRatings(prev => ({
@@ -63,47 +84,100 @@ const SubjectFeedbackGrid = ({ form }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate that all ratings are filled
+    setMessage(''); // Clear messages before submitting
+
+    // Basic validation to ensure all ratings are filled
+    if (subjects.length === 0 || questions.length === 0) {
+        setMessage("Cannot submit: No subjects or questions available.");
+        return;
+    }
+
+    let allRatingsFilled = true;
     for (const q of questions) {
       for (const s of subjects) {
         if (!ratings[q.id]?.[s.id]) {
-          setMessage("Error: Please complete all feedback ratings.");
-          return;
+          allRatingsFilled = false;
+          break;
         }
       }
+      if (!allRatingsFilled) break;
     }
+
+    if (!allRatingsFilled) {
+      setMessage("Error: Please provide a rating for every subject and question.");
+      return;
+    }
+
     setIsSubmitting(true);
-    setMessage('');
     try {
       await addDoc(collection(db, 'feedback'), {
-        formId: form.id, formName: form.name, userId: currentUser.uid, userEmail: currentUser.email,
-        semester: selectedSemester, ratings: ratings, submittedAt: serverTimestamp()
+        formId: form.id,
+        formName: form.name,
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
+        semester: selectedSemester,
+        ratings: ratings,
+        submittedAt: serverTimestamp()
       });
       setMessage('Thank you! Your feedback has been submitted successfully.');
-      setRatings({});
+      setRatings({}); // Clear ratings after successful submission
+      // Optionally, you might want to prevent further submissions or redirect
     } catch (error) {
       console.error("Error submitting feedback: ", error);
-      setMessage('An error occurred. Please try again.');
+      setMessage('An error occurred while submitting. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (!selectedSemester) return <SemesterSelector onSemesterSelect={setSelectedSemester} yearOfJoining={yearOfJoining} />;
-  if (loading) return <p className="text-center font-semibold">Loading...</p>;
+  // Render SemesterSelector first if no semester is chosen
+  if (!selectedSemester) {
+    return <SemesterSelector onSemesterSelect={setSelectedSemester} yearOfJoining={yearOfJoining} />;
+  }
+
+  // Render loading state
+  if (loading) {
+    return (
+      <div className="feedback-loading">
+        <FaSpinner className="spinner-icon" />
+        <p>Loading feedback form...</p>
+      </div>
+    );
+  }
+
+  // Render message if no subjects/questions are found after loading
+  if (subjects.length === 0 || questions.length === 0) {
+    return (
+        <div className="feedback-no-data">
+            <p className="message-info">{message || "No subjects or questions available for this semester/form."}</p>
+            <button onClick={() => setSelectedSemester(null)} className="btn-secondary mt-4">
+                Select Another Semester
+            </button>
+        </div>
+    );
+  }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="feedback-grid-container">
+    <div className="feedback-page-container">
+      <h2 className="feedback-page-title">Provide Feedback for {form.name}</h2>
+      <p className="semester-info">Selected Semester: {selectedSemester}</p>
+
+      {message && (
+        <div className={`feedback-message ${message.includes('Error') ? 'error-message' : 'success-message'}`}>
+          {message}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="feedback-form-layout">
+        <div className="feedback-grid-wrapper">
           <table className="feedback-grid-table">
             <thead>
               <tr>
                 <th className="question-header-cell">Question</th>
                 {subjects.map(subject => (
                   <th key={subject.id} className="subject-header-cell">
-                    {subject.type === 'Theory' ? <FaBookOpen /> : <FaFlask />}
-                    {subject.name}
+                    <span className="subject-icon">{subject.type === 'Theory' ? <FaBookOpen /> : <FaFlask />}</span>
+                    <span className="subject-name">{subject.name}</span>
                   </th>
                 ))}
               </tr>
@@ -114,25 +188,26 @@ const SubjectFeedbackGrid = ({ form }) => {
                   <td className="question-body-cell">{question.text}</td>
                   {subjects.map(subject => (
                     <td key={subject.id} className="rating-grid-cell">
-                      {/* This is the vertical stack of ratings inside each cell */}
                       <div className="rating-stack">
                         {[5, 4, 3, 2, 1].map(value => {
                           const IconComponent = ratingIcons[value];
                           const isSelected = ratings[question.id]?.[subject.id] === value;
                           return (
-                            <label key={value} className={`rating-stack-item ${isSelected ? `selected rating-${value}` : ''}`}>
+                            <label
+                              key={value}
+                              className={`rating-option ${isSelected ? `selected rating-${value}` : ''}`}
+                              title={`Rate ${value} for ${subject.name} on "${question.text}"`}
+                            >
                               <input
                                 type="radio"
-                                name={`${question.id}-${subject.id}`}
+                                name={`rating-${question.id}-${subject.id}`} // Unique name for each radio group
                                 value={value}
                                 checked={isSelected}
                                 onChange={() => handleRatingChange(question.id, subject.id, value)}
-                                required
+                                required // Make sure a selection is required for each
                               />
-                              <span className="rating-number">{value}</span>
-                              <div className="rating-circle">
-                                <IconComponent className="icon-face" />
-                              </div>
+                              <span className="rating-value-label">{value}</span>
+                              <IconComponent className="rating-icon-face" />
                             </label>
                           );
                         })}
@@ -144,13 +219,11 @@ const SubjectFeedbackGrid = ({ form }) => {
             </tbody>
           </table>
         </div>
-        
-        {message && <p className={`text-center font-bold my-4 ${message.includes('Error') ? 'text-red-500' : 'text-green-500'}`}>{message}</p>}
 
-        {subjects.length > 0 && (
-          <div className="mt-8">
-            <button type="submit" className="btn-primary w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : <><FaPaperPlane /> Submit Feedback</>}
+        {subjects.length > 0 && questions.length > 0 && ( /* Only show submit if there's data to submit */
+          <div className="submit-button-container">
+            <button type="submit" className="btn btn-submit-feedback" disabled={isSubmitting}>
+              {isSubmitting ? <><FaSpinner className="spinner-icon-inline" /> Submitting...</> : <><FaPaperPlane /> Submit Feedback</>}
             </button>
           </div>
         )}

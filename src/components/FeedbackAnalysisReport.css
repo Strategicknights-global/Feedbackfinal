@@ -1,0 +1,323 @@
+/* src/components/FeedbackAnalysisReport.css - Sizes Reduced */
+
+.analysis-container {
+    max-width: 1200px; /* Reduced max-width */
+    margin: 1.5rem auto; /* Reduced margin */
+    padding: 1.5rem; /* Reduced padding */
+    background-color: #f8f9fa;
+    border-radius: 12px; /* Slightly less rounded */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07); /* Slightly softer shadow */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.5; /* Slightly tighter line height */
+}
+
+.analysis-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem; /* Reduced margin */
+    font-size: 2.5em; /* Reduced font size */
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08); /* Lighter text shadow */
+    border-bottom: 3px solid #e9ecef; /* Thinner border */
+    padding-bottom: 12px; /* Reduced padding */
+}
+
+/* Back button */
+.back-button {
+    display: block;
+    margin: 0.8rem auto 2rem; /* Reduced margins */
+    padding: 0.7rem 1.5rem; /* Reduced padding */
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px; /* Slightly less rounded */
+    cursor: pointer;
+    font-size: 0.95rem; /* Reduced font size */
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px); /* Less pronounced lift */
+}
+
+.back-button:active {
+    transform: translateY(0);
+}
+
+
+/* Loading, Error, No Data States */
+.analysis-loading,
+.analysis-error,
+.analysis-no-data {
+    text-align: center;
+    padding: 3rem; /* Reduced padding */
+    font-size: 1.2em; /* Reduced font size */
+    color: #6c757d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem; /* Reduced gap */
+    background-color: #fff;
+    border-radius: 12px; /* Slightly less rounded */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04); /* Lighter shadow */
+}
+
+.analysis-error {
+    color: #dc3545;
+}
+
+.spinner-icon {
+    font-size: 2.5em; /* Reduced icon size */
+    color: #4a69bd;
+    animation: spin 1.5s linear infinite;
+}
+
+.info-icon {
+    font-size: 2.5em; /* Reduced icon size */
+    color: #007bff;
+    animation: none;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Summary Section */
+.analysis-summary {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem; /* Reduced margin */
+    padding: 1rem; /* Reduced padding */
+    background-color: #e9f3f7;
+    border-radius: 10px; /* Slightly less rounded */
+    box-shadow: inset 0 1px 6px rgba(0,0,0,0.04); /* Lighter inset shadow */
+}
+
+.analysis-summary p {
+    font-size: 1.15em; /* Reduced font size */
+    font-weight: 500;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem; /* Reduced gap */
+    margin: 0.4rem; /* Reduced margin for wrapped items */
+}
+
+.analysis-summary p strong {
+    color: #4a69bd;
+    font-size: 1em; /* Reduced font size */
+}
+
+/* Chart Sections */
+.chart-section {
+    margin-bottom: 3rem; /* Reduced margin */
+    padding-top: 1.5rem; /* Reduced padding */
+    border-top: 1px dashed #e0e0e0;
+}
+
+.chart-section h2 {
+    font-size: 2em; /* Reduced font size */
+    color: #34495e;
+    margin-bottom: 1.2rem; /* Reduced margin */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem; /* Reduced gap */
+    font-weight: 600;
+}
+
+.chart-section .section-description {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1em; /* Reduced font size */
+    margin-bottom: 1.8rem; /* Reduced margin */
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Reduced minmax for charts */
+    gap: 2rem; /* Reduced gap */
+    justify-content: center;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Slightly less rounded */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07); /* Slightly lighter shadow */
+    padding: 1.5rem; /* Reduced padding */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 350px; /* Reduced min-height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-card:hover {
+    transform: translateY(-3px); /* Less pronounced lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter hover shadow */
+}
+
+.chart-card.large {
+    grid-column: span 1;
+}
+
+/* Raw Averages Table */
+.analysis-raw-data {
+    margin-top: 3rem; /* Reduced margin */
+    padding-top: 1.5rem; /* Reduced padding */
+    border-top: 1px dashed #e0e0e0;
+}
+
+.analysis-raw-data h2 {
+    font-size: 2em; /* Reduced font size */
+    color: #34495e;
+    margin-bottom: 1.2rem; /* Reduced margin */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem; /* Reduced gap */
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 10px; /* Slightly less rounded */
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04); /* Lighter shadow */
+    background-color: #ffffff;
+}
+
+.analysis-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 700px; /* Reduced min-width */
+}
+
+.analysis-table th,
+.analysis-table td {
+    padding: 0.8rem 1rem; /* Reduced padding */
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.analysis-table thead th {
+    background-color: #eef3f7;
+    color: #4a69bd;
+    font-weight: 600;
+    font-size: 1em; /* Reduced font size */
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.analysis-table tbody td {
+    color: #555;
+    font-size: 0.9em; /* Reduced font size */
+}
+
+.analysis-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.analysis-table tbody tr:hover {
+    background-color: #f7f9fc;
+}
+
+/* Responsive Adjustments - These are also adjusted to reflect smaller base sizes */
+@media (max-width: 1200px) {
+    .analysis-container {
+        padding: 1.2rem;
+        max-width: 1000px; /* Further adjust max-width */
+    }
+    .analysis-title {
+        font-size: 2.2em;
+    }
+    .chart-section h2 {
+        font-size: 1.8em;
+    }
+    .chart-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted minmax */
+        gap: 1.5rem;
+    }
+    .chart-card {
+        padding: 1.2rem;
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 992px) {
+    .analysis-container {
+        padding: 1rem;
+    }
+    .analysis-summary p {
+        font-size: 1em;
+        margin-bottom: 0.8rem;
+    }
+    .chart-section h2 {
+        font-size: 1.6em;
+    }
+    .chart-grid {
+        grid-template-columns: 1fr; /* Stack charts vertically */
+        gap: 1.5rem;
+    }
+    .chart-card {
+        min-height: 280px;
+    }
+    .analysis-table {
+        min-width: 550px; /* Allow more aggressive scroll */
+    }
+}
+
+@media (max-width: 768px) {
+    .analysis-title {
+        font-size: 1.8em;
+    }
+    .analysis-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+    .analysis-summary p {
+        font-size: 0.95em;
+    }
+    .analysis-loading, .analysis-error, .analysis-no-data {
+        padding: 1.5rem;
+        font-size: 1em;
+        gap: 0.8rem;
+    }
+    .spinner-icon, .info-icon {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 576px) {
+    .analysis-container {
+        padding: 0.8rem;
+    }
+    .analysis-title {
+        font-size: 1.5em;
+    }
+    .chart-section h2 {
+        font-size: 1.3em;
+    }
+    .chart-card {
+        padding: 0.8rem;
+        min-height: 220px;
+    }
+    .analysis-table {
+        min-width: 400px;
+    }
+    .analysis-table th, .analysis-table td {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85em;
+    }
+}
